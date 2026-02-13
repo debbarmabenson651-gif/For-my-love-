@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at bottom, #020111, #000);
+  color: white;
+  font-family: 'Courier New', monospace;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Stars */
+.stars {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  box-shadow:
+    100px 200px white,
+    300px 400px white,
+    600px 100px white,
+    800px 300px white,
+    1200px 500px white,
+    1500px 200px white;
+  animation: twinkle 3s infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.3; }
+  to { opacity: 1; }
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  padding: 20px;
+}
+
+.letter {
+  max-width: 600px;
+  margin: auto;
+  white-space: pre-wrap;
+  font-size: 18px;
+  min-height: 300px;
+}
+
+.buttons {
+  display: none;
+  margin-top: 20px;
+}
+
+button {
+  padding: 12px 20px;
+  margin: 10px;
+  font-size: 18px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.yes {
+  background: #ff4d6d;
+  color: white;
+}
+
+.no {
+  background: #444;
+  color: white;
+}
+
+.message {
+  display: none;
+  font-size: 22px;
+  margin-top: 20px;
+}
+
+/* Fireworks */
+.firework {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: gold;
+  border-radius: 50%;
+  animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(20); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+<div class="stars"></div>
+
+<div class="container">
+  <div id="letter" class="letter"></div>
+
+  <div class="buttons" id="buttons">
+    <button class="yes" onclick="sayYes()">YES ❤️</button>
+    <button class="no" onclick="sayNo()">NO 😅</button>
+  </div>
+
+  <div class="message" id="message"></div>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="parbona.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* Tap to play music */
+document.body.addEventListener("click", () => {
+  document.getElementById("bgMusic").play();
+}, { once: true });
+
+/* Typing text */
+const text = `
+My dearest Aritrika ❤️
+
+From the moment you came into my life,
+everything felt warmer, calmer, real.
+
+Why I love you:
+• Your smile lights up my world
+• You understand me deeply
+• You make ordinary days magical
+• You feel like home 🌙
+
+No matter what happens,
+my heart chooses you. Always.
+
+Will you be my Valentine? 💘
+
+— Yours, Benson 💌
+`;
+
+let i = 0;
+const speed = 50;
+const letter = document.getElementById("letter");
+
+function typeText() {
+  if (i < text.length) {
+    letter.innerHTML += text.charAt(i);
+    letter.scrollTop = letter.scrollHeight;
+    i++;
+    setTimeout(typeText, speed);
+  } else {
+    document.getElementById("buttons").style.display = "block";
+  }
+}
+
+window.onload = () => {
+  setTimeout(typeText, 1000);
+};
+
+/* YES */
+function sayYes() {
+  const msg = document.getElementById("message");
+  msg.innerHTML = "She said YES 💍✨<br>I love you Aritrika ❤️";
+  msg.style.display = "block";
+  fireworks();
+}
+
+/* NO */
+function sayNo() {
+  alert("Nice try 😜 You can't escape my love ❤️");
+}
+
+/* Fireworks */
+function fireworks() {
+  for (let i = 0; i < 20; i++) {
+    const f = document.createElement("div");
+    f.className = "firework";
+    f.style.left = Math.random() * window.innerWidth + "px";
+    f.style.top = Math.random() * window.innerHeight + "px";
+    document.body.appendChild(f);
+    setTimeout(() => f.remove(), 1000);
+  }
+}
+</script>
+
+</body>
+</html>
