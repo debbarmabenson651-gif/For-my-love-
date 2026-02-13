@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at bottom, #0b132b, #000);
+  color: white;
+  overflow-x: hidden;
+  text-align: center;
+}
+
+/* Stars */
+body::before {
+  content: "";
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(1px 1px at 10% 20%, white, transparent),
+    radial-gradient(1px 1px at 30% 80%, white, transparent),
+    radial-gradient(1px 1px at 60% 40%, white, transparent),
+    radial-gradient(2px 2px at 80% 70%, white, transparent);
+  animation: twinkle 6s infinite alternate;
+  pointer-events: none;
+}
+@keyframes twinkle {
+  from {opacity: 0.4;}
+  to {opacity: 1;}
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+.card {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 25px;
+  margin: 25px 0;
+}
+
+.typing {
+  border-right: 2px solid white;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 6s steps(80,end), blink .7s infinite;
+}
+@keyframes typing {
+  from {width: 0;}
+  to {width: 100%;}
+}
+@keyframes blink {
+  50% {border-color: transparent;}
+}
+
+button {
+  padding: 14px 28px;
+  margin: 10px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.yes {
+  background: linear-gradient(135deg,#ff4d6d,#ff85a1);
+  color: white;
+  box-shadow: 0 0 20px rgba(255,77,109,.7);
+}
+
+.no {
+  background: #444;
+  color: white;
+}
+
+#message {
+  margin-top: 25px;
+  font-size: 1.2rem;
+  display: none;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop>
+  <source src="parbona.mp3" type="audio/mpeg">
+</audio>
+
+<canvas id="fireworks"></canvas>
+
+<div class="container">
+  <h1>❤️ Happy Valentine’s Day</h1>
+  <h2>My Dearest Aritrika 💖</h2>
+
+  <div class="card">
+    <p class="typing">
+      Every night, when I look at the sky,
+      I realize the stars shine brighter because of you.
+      You are my calm, my dream, and my forever.
+      I love you endlessly 💕
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Why I Love You 💞</h3>
+    <p>✨ Your smile lights up my darkest nights<br>
+       ✨ You understand my silence<br>
+       ✨ You make love feel safe<br>
+       ✨ You are my favorite thought<br>
+       ✨ You are my forever</p>
+  </div>
+
+  <h3>Will you be my Valentine? 🌹</h3>
+  <button class="yes" onclick="yesClick()">YES ❤️</button>
+  <button class="no" onclick="noClick()">NO 🙈</button>
+
+  <div id="message"></div>
+
+  <p style="margin-top:15px;opacity:.8;">🔊 Tap anywhere to start the music</p>
+
+  <footer style="margin-top:40px;opacity:.8;">
+    Forever under the same stars ✨<br>
+    — Benson ❤️
+  </footer>
+</div>
+
+<script>
+/* Music */
+document.body.addEventListener("click", () => {
+  document.getElementById("bgMusic").play();
+}, { once: true });
+
+/* Yes / No */
+function yesClick() {
+  document.getElementById("message").style.display = "block";
+  document.getElementById("message").innerHTML =
+    "🎆 She said YES! 🎆<br><br>" +
+    "Aritrika, you just made me the happiest person alive ❤️<br>" +
+    "I promise to love you, respect you, and stand by you—always 💍✨";
+  startFireworks();
+}
+
+function noClick() {
+  alert("Nice try 😌 But my heart already chose you ❤️");
+}
+
+/* Fireworks */
+const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+let particles = [];
+
+function startFireworks() {
+  setInterval(() => {
+    for (let i = 0; i < 60; i++) {
+      particles.push({
+        x: canvas.width / 2,
+        y: canvas.height / 2,
+        r: Math.random() * 3 + 1,
+        dx: (Math.random() - 0.5) * 8,
+        dy: (Math.random() - 0.5) * 8,
+        life: 100
+      });
+    }
+  }, 700);
+}
+
+function animate() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach((p,i) => {
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle = "pink";
+    ctx.fill();
+    p.x += p.dx;
+    p.y += p.dy;
+    p.life--;
+    if (p.life <= 0) particles.splice(i,1);
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+</body>
+</html>
